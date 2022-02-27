@@ -2,10 +2,12 @@ numbers = [94, 14, 27, 85, 41, 97, 43, 57, 45, 4, 78, 80, 28, 68, 92, 60, 61, 59
            90, 48, 8, 47, 5, 50, 33, 6, 18, 82, 36, 91, 101, 54, 75, 81, 2, 48, 65, 53, 8, 37, 81, 59, 87, 84, 89, 38,
            95, 99, 83, 96, 47, 64, 92, 15, 74, 96, 37, 2, 43, 16, 28, 80, 25, 24, 16, 54, 48, 36, 30, 52, 72, 6, 57, 23,
            77, 39, 61, 26, 65, 22, 75, 67, 28, 33, 84, 80, 67, 1, 38, 25, 2]
+n = len(numbers)
 
 """
 Keresés
 
+ker = 30
 i = 0
 ciklus amíg i<n és t[i]<>ker
     i = i + 1
@@ -20,34 +22,26 @@ ha vége
 """
 print("Keresés")
 
-# Ver 1
-
-ker = 24
+# 24 a keresett érték
 i = 0
-n = len(numbers)
-while i < n and numbers[i] != ker:
-    i = i + 1
-
+for elem in numbers:
+    if i < n and numbers[i] != 24:  # TODO: i<n teljesen felesleges, mindig igaz
+        i = i + 1
 if i < n:
-    print(f"Van ilyen, index: {i}")
+    print("Van ilyen")
+    print("Az indexe: ", i)
+else:
+    print("Az érték nem található")
+
+# TODO: miért ne működne?
+for elem in numbers:
+    if numbers[i] != 24:
+        i = i + 1
+if i < n:
+    print("Van ilyen")
+    print("Indexe: ", i)
 else:
     print("A keresett érték nem található")
-
-# Ver 2
-i = 0
-found = False
-for i, elem in enumerate(numbers):
-    if elem == ker:
-        found = True
-        break
-
-if found:
-    print(f"Van ilyen, index: {i}")
-else:
-    print("A keresett érték nem található")
-
-# Ver 3
-print(f"Van ilyen, index: {numbers.index(ker)}") if ker in numbers else print("A keresett érték nem található")
 
 """
 
@@ -62,31 +56,12 @@ ciklus vége
 ki max
 
 """
-print("Maxkiv")
-
-# Ver 1
-max_val = numbers[0]
-i = 0
-n = len(numbers)
-while i < n:
-    if numbers[i] > max_val:
-        max_val = numbers[i]
-
-    i = i + 1
-
-print(f"Max {max_val}")
-
-# Ver 2
-max_val = numbers[0]
-for elem in numbers:
-    if elem > max_val:
-        max_val = elem
-
-print(f"Max {max_val}")
-
-# Ver 3
-print(f"Max {max(numbers)}")
-
+print("Maximum kiválasztás")
+max = numbers[0]
+for i, elem in enumerate(numbers):
+    if numbers[i] > max:
+        max = numbers[i]
+print(max)
 """ 
 
 Kiválogatás
@@ -102,27 +77,10 @@ ciklus vége
 """
 print("Kiválogatás")
 
-# Ver 1
-j = 0
-i = 0
-n = len(numbers)
 b = []
-while i < n:
+j = 0
+for i, elem in enumerate(numbers):
     if numbers[i] < 80:
         b.append(numbers[i])
-    i = i + 1
-
-print(b)
-
-# Ver 2
-b = []
-for elem in numbers:
-    if elem < 80:
-        b.append(elem)
-
-print(b)
-
-# Ver 3
-
-b = [elem for elem in numbers if elem < 80]
+        j = j + 1 # TODO: felesleges pythonban nem lehet nem létező indexre hivatkozni
 print(b)
