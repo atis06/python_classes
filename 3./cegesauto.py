@@ -48,7 +48,6 @@ for car in traffic:
 
     print(car["time"], car["plate"], car["id"], in_out)
 
-
 print("\n")
 print("4. feladat")
 
@@ -80,3 +79,64 @@ for car in cars:
 for key in maximums.keys():
     diff = maximums[key] - minimums[key]
     print(f"{key} {diff} km")
+
+print("\n")
+print("6. feladat")
+
+# 1. külső ciklus amíg végig nem érek X
+# 2. belső ciklus amíg ugyan az az autó, ugyan az az ember és bejövő
+# 3. különbség számítása
+# 4. ha a max érték kisebb mint a jelenlegi különbség akkor max = jelenlegi
+
+maximum_km = 0
+maximum_person = ""
+
+i = 0
+n = len(cars)
+while i < n:
+    actual_car = cars[i]
+
+    if actual_car['drive_in'] == 0:
+        j = i + 1
+
+        found = False
+        while j < n and not found:
+            if cars[j]['plate'] == actual_car['plate'] \
+                    and cars[j]['id'] == actual_car['id'] \
+                    and cars[j]['drive_in'] == 1:
+                found = True
+                diff = cars[j]['km'] - actual_car['km']
+                if diff > maximum_km:
+                    maximum_km = diff
+                    maximum_person = cars[j]['id']
+                    max_pair = (actual_car, cars[j])
+
+            j += 1
+
+    i += 1
+
+print(f"Leghosszabb út: {maximum_km} km, személy: {maximum_person}")
+
+print("\n")
+print("7. feladat")
+
+plate_in = input("Rendszám: ")
+
+with open(f"{plate_in}_menetlevel.txt", "w") as file:
+    for car in cars:
+        if car['plate'] == plate_in:
+            id = car['id']
+            day = car['day']
+            time = car['time']
+            km = car['km']
+
+            write_out = f"{id}\t{day}. {time}\t{km} km"
+
+            if car['drive_in'] == 0:
+                write_out += "\t"
+            else:
+                write_out += "\n"
+
+            file.write(write_out)
+
+print("Menetlevél kész.")
